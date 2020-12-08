@@ -18,9 +18,8 @@ class Node(object):
         self.balance= 0
 
     # Generate the Genesis block and append it to the local blockchain for all nodes
-    def generate_gensis_block():
-        from InputsConfig import InputsConfig as p
-        for node in p.NODES:
+    def generate_gensis_block(nodes):
+        for node in nodes:
             node.blockchain.append(Block())
 
     # Get the last block at the node's local blockchain

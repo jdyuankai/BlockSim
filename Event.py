@@ -1,4 +1,5 @@
 import operator
+import heapq
 from InputsConfig import InputsConfig as p
 
 class Event(object):
@@ -19,12 +20,11 @@ class Event(object):
 class Queue:
     event_list=[] # this is where future events will be stored
     def add_event(event):
-        Queue.event_list += [event]
-    def remove_event(event):
-        del Queue.event_list[0]
-    def get_next_event():
-        Queue.event_list.sort(key=operator.attrgetter('time'), reverse=False) # sort events -> earliest one first
-        return Queue.event_list[0]
+        # print(event.type, event.node, event.time, event.block)
+        heapq.heappush(Queue.event_list, (event.time, event))
+    def pop_event():
+        _, event = heapq.heappop(Queue.event_list)
+        return event
     def size():
         return len(Queue.event_list)
     def isEmpty():

@@ -13,19 +13,19 @@ class Scheduler:
         eventType = "create_block"
         if eventTime <= p.simTime:
                 # prepare attributes for the event
-                block= Block()
-                block.miner= miner.id
-                block.depth= len(miner.blockchain)
-                block.id= random.randrange(100000000000)
-                block.previous= miner.last_block().id
-                block.timestamp= eventTime
+                block= Block(
+                    depth= len(miner.blockchain),
+                    id= random.randrange(100000000000),
+                    previous= miner.last_block().id,
+                    timestamp= eventTime,
+                    miner= miner.id,
+                )
 
                 event = Event(eventType,block.miner,eventTime,block) # create the event
                 Queue.add_event(event) # add the event to the queue
 
     # Schedule a block receiving event for a node and add it to the event list
-    def receive_block_event(recipient,block,blockDelay):
-        receive_block_time = block.timestamp +  blockDelay
-        if receive_block_time <= p.simTime:
-                e = Event("receive_block", recipient.id, receive_block_time, block)
+    def receive_block_event(recipient, block, event_time):
+        if event_time <= p.simTime:
+                e = Event("receive_block", recipient.id, event_time, block)
                 Queue.add_event(e)

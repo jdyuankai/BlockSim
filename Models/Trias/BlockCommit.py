@@ -37,7 +37,7 @@ class BlockCommit(BaseBlockCommit):
 
             if p.hasTrans and p.Ttechnique == "Light":LT.create_transactions() # generate transactions
 
-            BlockCommit.propagate_block(event.block)
+            BlockCommit.propagate_block(event.block, eventTime)
             BlockCommit.generate_next_block(miner,eventTime)# Start mining or working on the next block
 
     # Block Receiving Event
@@ -66,6 +66,9 @@ class BlockCommit(BaseBlockCommit):
                 BlockCommit.generate_next_block(node,currentTime)# Start mining or working on the next block
 
             if p.hasTrans and p.Ttechnique == "Full": BlockCommit.update_transactionsPool(node,event.block) # not sure yet.
+        
+        event.block.block_receive(event.node, currentTime)
+        BlockCommit.propagate_block(event.block, currentTime)
 
     # Upon generating or receiving a block, the miner start working on the next block as in POW
     def generate_next_block(node,currentTime):
@@ -78,8 +81,9 @@ class BlockCommit(BaseBlockCommit):
             for node in p.NODES:
             	BlockCommit.generate_next_block(node,currentTime)
 
-    def propagate_block (block):
-        for recipient in p.NODES:
-            if recipient.id != block.miner:
-                blockDelay= p.Bdelay[block.miner][recipient.id]
-                Scheduler.receive_block_event(recipient,block,blockDelay)
+    def propagate_block (block, currentTime):
+        for recipient in random.sample(p.NODES, 10):
+            if recipient.id != block.miner and block.broadcast_status[recipient.id] == False:
+                # blockDelay = p.Bdelay[block.miner][recipient.id]
+                blockDelay = Network.block_prop_delay()
+                Scheduler.receive_block_event(recipient,block,currentTime+blockDelay)

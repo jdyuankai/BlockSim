@@ -34,30 +34,34 @@ elif p.model==0:
 ########################################################## Start Simulation ##############################################################
 def main():
     for i in range (p.Runs):
+
+        from Models.Trias.Node import Node
+        for i in range(p.Nn):
+            p.NODES.append(Node(id=i,hashPower=100/p.Nn))
+
         clock =0 # set clock to 0 at the start of the simulation
         if p.hasTrans:
             if p.Ttechnique == "Light": LT.create_transactions() # generate pending transactions
             elif p.Ttechnique == "Full": FT.create_transactions() # generate pending transactions
-
-        Node.generate_gensis_block() # generate the gensis block for all miners
+        
+        Node.generate_gensis_block(p.NODES) # generate the gensis block for all miners
         BlockCommit.generate_initial_events() # initiate initial events >= 1 to start with
 
         while  not Queue.isEmpty() and clock <= p.simTime:
-            next_event = Queue.get_next_event()
+            next_event = Queue.pop_event()
             clock = next_event.time # move clock to the time of the event
             BlockCommit.handle_event(next_event)
-            Queue.remove_event(next_event)
 
-        Consensus.fork_resolution() # apply the longest chain to resolve the forks
-        Incentives.distribute_rewards()# distribute the rewards between the particiapting nodes
-        Statistics.calculate() # calculate the simulation results (e.g., block statstics and miners' rewards)
+        #Consensus.fork_resolution() # apply the longest chain to resolve the forks
+        #Incentives.distribute_rewards()# distribute the rewards between the particiapting nodes
+        #Statistics.calculate() # calculate the simulation results (e.g., block statstics and miners' rewards)
 
 		########## reset all global variable before the next run #############
-        Statistics.reset() # reset all variables used to calculate the results
-        Node.resetState() # reset all the states (blockchains) for all nodes in the network
-    fname= "(Allverify)1day_{0}M_{1}K.xlsx".format(p.Bsize/1000000, p.Tn/1000)
-    Statistics.print_to_excel(fname) # print all the simulation results in an excel file
-    Statistics.reset2() # reset profit results
+        #Statistics.reset() # reset all variables used to calculate the results
+        #Node.resetState() # reset all the states (blockchains) for all nodes in the network
+    #fname= "(Allverify)1day_{0}M_{1}K.xlsx".format(p.Bsize/1000000, p.Tn/1000)
+    #Statistics.print_to_excel(fname) # print all the simulation results in an excel file
+    #Statistics.reset2() # reset profit results
 
 
 
