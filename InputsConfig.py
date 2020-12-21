@@ -109,7 +109,7 @@ class InputsConfig:
         ''' Block Parameters '''
         Binterval = 600 # Average time (in seconds)for creating a block in the blockchain
         Bsize = 1.0 # The block size in MB
-        Bdelay = 0.42 # average block propogation delay in seconds, #Ref: https://bitslog.wordpress.com/2016/04/28/uncle-mining-an-ethereum-consensus-protocol-flaw/
+        # Bdelay = 0.42 # average block propogation delay in seconds, #Ref: https://bitslog.wordpress.com/2016/04/28/uncle-mining-an-ethereum-consensus-protocol-flaw/
         # Bdelay = [
         #     [ float("inf")     , 21.62 , 24.42 , 0.57  , 7.74  , 9.18  , 1.01  , 0.76  , 18.44 , 21.14 , 26.56 , 19.78 , 23.61 , 16.76 , 23.34 , 21.5  , 24.11 , 23.54 ],
         #     [ 21.62 , float("inf")     , 19.31 , 21.47 , 28.97 , 21.35 , 21.12 , 20.89 , 3.63  , 0.68  , 6.12  , 8.61  , 3.84  , 13.02 , 17.38 , 23.68 , 13.5  , 18.4  ],
@@ -167,11 +167,12 @@ class InputsConfig:
         Tsize = 0.000546 # The average transaction size  in MB
 
         ''' Node Parameters '''
-        Nn = 10000 # the total number of nodes in the network
+        Nn = 1000 # the total number of nodes in the network
         NODES = []
-        
+
+        ''' Network Parameters'''
+        BoardcastType = "DBDC" # Gossip / DBDC
 
         ''' Simulation Parameters '''
         simTime= 10000 # the simulation length (in seconds)
         Runs=1 # Number of simulation runs
-

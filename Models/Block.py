@@ -1,4 +1,5 @@
 from InputsConfig import InputsConfig as p
+from Output import Output
 
 class Block(object):
     
@@ -40,9 +41,11 @@ class Block(object):
             self.broadcast_counter += 1
             
             ratio = self.broadcast_counter / p.Nn
-            if ratio == 0.1:
-                print("Block {id} is already broadcast 10% of nodes at the time of {timestamp}".format(id=self.id, timestamp=timestamp))
-            elif ratio == 0.5:
-                print("Block {id} is already broadcast 50% of nodes at the time of {timestamp}".format(id=self.id, timestamp=timestamp))
-            elif ratio == 1.0:
-                print("Block {id} is already broadcast 100% of nodes at the time of {timestamp}".format(id=self.id, timestamp=timestamp))
+            Output.add(timestamp, self.id, recipient_id, self.broadcast_counter, ratio)
+            # if ratio == 0.1:
+            #     print("Block {id} is already broadcast 10% of nodes at the time of {timestamp}".format(id=self.id, timestamp=timestamp))
+            # elif ratio == 0.5:
+            #     print("Block {id} is already broadcast 50% of nodes at the time of {timestamp}".format(id=self.id, timestamp=timestamp))
+            # elif ratio == 1.0:
+            #     print("Block {id} is already broadcast 100% of nodes at the time of {timestamp}".format(id=self.id, timestamp=timestamp))
+

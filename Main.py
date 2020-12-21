@@ -2,6 +2,7 @@ from InputsConfig import InputsConfig as p
 from Event import Event, Queue
 from Scheduler import Scheduler
 from Statistics import Statistics
+from Output import Output
 
 if p.model==3:
 	from Models.Trias.BlockCommit import BlockCommit
@@ -36,6 +37,7 @@ def main():
     for i in range (p.Runs):
 
         from Models.Trias.Node import Node
+        p.NODES = []
         for i in range(p.Nn):
             p.NODES.append(Node(id=i,hashPower=100/p.Nn))
 
@@ -51,6 +53,10 @@ def main():
             next_event = Queue.pop_event()
             clock = next_event.time # move clock to the time of the event
             BlockCommit.handle_event(next_event)
+
+        # Output.output_to_xlsx("data_v3.xlsx")
+        Output.calculate()
+        Output.reset()
 
         #Consensus.fork_resolution() # apply the longest chain to resolve the forks
         #Incentives.distribute_rewards()# distribute the rewards between the particiapting nodes

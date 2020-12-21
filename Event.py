@@ -16,6 +16,12 @@ class Event(object):
         self.node = node
         self.time = time
         self.block = block
+    
+    def __lt__(self, e):
+        if self.time < e.time:
+            return True
+        else:
+            return False
 
 class Queue:
     event_list=[] # this is where future events will be stored
