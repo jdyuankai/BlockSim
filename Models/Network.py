@@ -3,7 +3,7 @@ from clustering import dbdc
 from InputsConfig import InputsConfig as p
 
 class Network:
-    ROUND_TIME = 1.0
+    ROUND_TIME = 0.1
     CHOICE_NODE = 30
     
     nodes, _, delays = dbdc._generate_nodes(p.Nn, 10) 

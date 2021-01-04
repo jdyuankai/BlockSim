@@ -172,7 +172,10 @@ class InputsConfig:
 
         ''' Network Parameters'''
         BoardcastType = "DBDC" # Gossip / DBDC
-
+        
+        ''' Security Parameters'''
+        attack = True 
+        
         ''' Simulation Parameters '''
         simTime= 10000 # the simulation length (in seconds)
         Runs=1 # Number of simulation runs

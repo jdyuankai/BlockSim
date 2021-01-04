@@ -3,6 +3,7 @@ from Event import Event, Queue
 from Scheduler import Scheduler
 from Statistics import Statistics
 from Output import Output
+from Security import Security
 
 if p.model==3:
 	from Models.Trias.BlockCommit import BlockCommit
@@ -48,14 +49,17 @@ def main():
         
         Node.generate_gensis_block(p.NODES) # generate the gensis block for all miners
         BlockCommit.generate_initial_events() # initiate initial events >= 1 to start with
+        
+        if p.attack:
+            Security.generate_initial_events()
 
         while  not Queue.isEmpty() and clock <= p.simTime:
             next_event = Queue.pop_event()
             clock = next_event.time # move clock to the time of the event
             BlockCommit.handle_event(next_event)
 
-        # Output.output_to_xlsx("data_v3.xlsx")
-        Output.calculate()
+        Output.output_to_xlsx("data_v5.xlsx")
+        # Output.calculate()
         Output.reset()
 
         #Consensus.fork_resolution() # apply the longest chain to resolve the forks

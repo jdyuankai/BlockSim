@@ -7,15 +7,21 @@ from Models.Transaction import LightTransaction as LT, FullTransaction as FT
 from Models.Network import network
 from Models.Trias.Consensus import Consensus as c
 from Models.BlockCommit import BlockCommit as BaseBlockCommit
+from Security import Security
 
 class BlockCommit(BaseBlockCommit):
 
     # Handling and running Events
     def handle_event(event):
+        if p.attack and Security.get_node_attack_status(event.node):
+            return
+
         if event.type == "create_block":
             BlockCommit.generate_block(event)
         elif event.type == "receive_block":
             BlockCommit.receive_block(event)
+        elif event.type == "attack_node":
+            Security.handle_attack_event(event)
 
     # Block Creation Event
     def generate_block (event):
