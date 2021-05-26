@@ -22,9 +22,6 @@ ln -s ../clustering clustering
 
 # install requirement
 pip3 install -r requirement.txt
-
-# run BlockSim and output data.csv
-python3 Main.py
 ```
 
 ## Running the simulator
@@ -34,7 +31,7 @@ The parameters include the number of nodes (and their fraction of hash power), t
 Each model has a slightly different (or additional) parameters to capture it.
 
 To run the simulator, one needs to trigger the main class *Main.py* either from the command line
-> python Main.py
+> python3 Main.py
 
 or using any Python editor such as Spyder.
 
