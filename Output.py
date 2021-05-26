@@ -60,6 +60,10 @@ class Output:
         df.to_excel(writer, sheet_name='output')
         writer.save()
 
+    def output_to_csv(file_name):
+        df= pd.DataFrame(Output.cache)
+        df.to_csv(path_or_buf=file_name, header=0)
+
     def reset():
         cache = []
         block_create_time = {}

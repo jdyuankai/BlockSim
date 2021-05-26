@@ -9,12 +9,23 @@ For more details about BlockSim, we refer to our journal paper that can be freel
 
 Before you can use BlockSim  simulator, you need to have **Python version 3 or above** installed in your machine as well as have the following packages installed:
 
-- pandas 
->pip install pandas
-- numpy 
->pip install numpy
-- sklearn 
->pip install sklearn
+```
+# clone BlockSim Repository
+git clone https://github.com/jdyuankai/BlockSim.git
+
+# clone clustering, this is a private repository, please apply for permission first and fork to your own repositories optional
+git clone https://github.com/jdyuankai/clustering.git
+
+# create soft link to clustering
+cd BlockSim
+ln -s ../clustering clustering
+
+# install requirement
+pip3 install -r requirement.txt
+
+# run BlockSim and output data.csv
+python3 Main.py
+```
 
 ## Running the simulator
 

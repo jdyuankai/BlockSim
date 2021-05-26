@@ -58,7 +58,7 @@ def main():
             clock = next_event.time # move clock to the time of the event
             BlockCommit.handle_event(next_event)
 
-        Output.output_to_xlsx("data_v5.xlsx")
+        Output.output_to_csv("data.csv")
         # Output.calculate()
         Output.reset()
 
