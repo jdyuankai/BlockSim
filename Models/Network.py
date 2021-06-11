@@ -1,14 +1,14 @@
 import random
-from clustering import dbdc
+from Models.DataProvider import dataProvider
 from InputsConfig import InputsConfig as p
 
 class Network:
     ROUND_TIME = 0.1
     CHOICE_NODE = 30
     
-    nodes, _, delays = dbdc._generate_nodes(p.Nn, 10) 
+    nodes, _, delays = dataProvider.generate_nodes()
     delay = [[__/1000 for __ in _] for _ in delays]
-    cluster_labels, label_repre = dbdc.decide_cluster(nodes)
+    cluster_labels, label_repre = dataProvider.decide_cluster(nodes)
 
     # Delay for propagating blocks in the network
     def block_prop_delay():
